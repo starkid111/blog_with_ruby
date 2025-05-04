@@ -16,4 +16,16 @@ production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
 
- 
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: blog_with_ruby_production
+    username: blog_with_ruby
+    password: <%= ENV["BLOG_WITH_RUBY_DATABASE_PASSWORD"] %>
+
+  cable:
+    <<: *primary_production
+    # give it a distinct DB name (or reuse primary if you want):
+    database: blog_with_ruby_production_cable
+    migrations_paths: db/cable_migrate
