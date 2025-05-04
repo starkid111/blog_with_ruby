@@ -17,8 +17,3 @@ production:
   url: <%= ENV['DATABASE_URL'] %>
 
  
-
-  # Add these for Solid Cable
-  cable:
-  <<: *default
-  database: <%= ENV['DATABASE_URL'].sub(/\/[^\/]*$/, '_cable') %>
