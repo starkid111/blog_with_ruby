@@ -1,11 +1,12 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
   timeout: 5000
-  username: <%= ENV.fetch("DB_USERNAME") { "your_username" } %>
-  password: <%= ENV.fetch("DB_PASSWORD") { "your_password" } %>
-  host: <%= ENV.fetch("DB_HOST") { "localhost" } %>
+  username: <%= ENV.fetch("DB_USERNAME", "your_username") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "your_password") %>
+  host: <%= ENV.fetch("DB_HOST", "localhost") %>
+  port: <%= ENV.fetch("DB_PORT", 5432) %>
 
 development:
   <<: *default
@@ -17,8 +18,4 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV.fetch("DB_NAME") { "blog_with_ruby_production" } %>
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
-  host: <%= ENV["DB_HOST"] %>
-  port: <%= ENV.fetch("DB_PORT") { 5432 } %>
+  database: <%= ENV.fetch("DB_NAME", "blog_with_ruby_production") %>
