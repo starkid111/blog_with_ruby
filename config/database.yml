@@ -3,22 +3,34 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  username: <%= ENV.fetch("DB_USERNAME") { "postgres" } %> # Your PostgreSQL username (usually "postgres")
-  password: <%= ENV.fetch("DB_PASSWORD") { "Chainsmoke" } %> # The password you set for the 'postgres' role
+  username: <%= ENV.fetch("DB_USERNAME") { "postgres" } %>  # Your PostgreSQL username
+  password: <%= ENV.fetch("DB_PASSWORD") { "Chainsmoke" } %>  # The password for the 'postgres' role
   host: <%= ENV.fetch("DB_HOST") { "localhost" } %>
+  port: <%= ENV.fetch("DB_PORT") { 5432 } %>
 
 development:
   <<: *default
-  database: blog_with_ruby_development # Your Rails app's database name for development
+  database: blog_with_ruby_development
 
 test:
   <<: *default
-  database: blog_with_ruby_test # Your Rails app's database name for testing
+  database: blog_with_ruby_test
 
 production:
-  <<: *default
-  database: <%= ENV.fetch("DB_NAME") { "blog_with_ruby_production" } %>
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
-  host: <%= ENV["DB_HOST"] %>
-  port: <%= ENV.fetch("DB_PORT") { 5432 } %>
+  primary:
+    <<: *default
+    database: <%= ENV.fetch("DB_NAME") { "blog_with_ruby_production" } %>
+    username: <%= ENV.fetch("DB_USERNAME") %>
+    password: <%= ENV.fetch("DB_PASSWORD") %>
+    host: <%= ENV.fetch("DB_HOST") %>
+    port: <%= ENV.fetch("DB_PORT") %>
+    url: <%= ENV.fetch("DATABASE_URL") %>
+
+  queue:
+    <<: *default
+    database: <%= ENV.fetch("DB_NAME") { "blog_with_ruby_production" } %>
+    username: <%= ENV.fetch("DB_USERNAME") %>
+    password: <%= ENV.fetch("DB_PASSWORD") %>
+    host: <%= ENV.fetch("DB_HOST") %>
+    port: <%= ENV.fetch("DB_PORT") %>
+    url: <%= ENV.fetch("DATABASE_URL") %>
