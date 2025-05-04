@@ -1,4 +1,12 @@
-<h1>Edit Post </h1>
-<%= render partial: "form", locals: {blog_post: @blog_post} %>
+<div class="max-w-3xl mx-auto py-8">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold text-slate-800">Edit Post</h1>
+        <%= render partial: "form", locals: {blog_post: @blog_post} %>
 
-<%=button_to "Delete", @blog_post,  method: :delete, data:{turbo_confirm: "Are you sure"} %>
+        <%=button_to "Delete", @blog_post,  method: :delete, data:{turbo_confirm: "Are you sure"},  class: "px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors" %>
+
+        <div class="mt-6">
+            <%= link_to "← Back to post", @blog_post, class: "text-indigo-600 hover:text-indigo-800 hover:underline" %>
+        </div>
+    </div>
+</div>
