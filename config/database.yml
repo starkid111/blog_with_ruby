@@ -20,6 +20,5 @@ production:
 
   # Add these for Solid Cable
   cable:
-    <<: *default
-    database: <%= ENv['DATABASE_URL'].sub(/\/[^\/]*$/, '_cable') %>
-    migrations_paths: db/cable_migrate
+  <<: *default
+  database: <%= ENV['DATABASE_URL'].sub(/\/[^\/]*$/, '_cable') %>
