@@ -4,7 +4,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   username: <%= ENV.fetch("DB_USERNAME", "postgres") %>
-  password: <%= ENV.fetch("DB_PASSWORD", "Chainsmoke") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
   host: <%= ENV.fetch("DB_HOST", "localhost") %>
   port: <%= ENV.fetch("DB_PORT", 5432) %>
 
@@ -17,17 +17,5 @@ test:
   database: blog_with_ruby_test
 
 production:
-  primary:
-    <<: *default
-    database: <%= ENV.fetch("DB_NAME", "blog_with_ruby_production") %>
-    url: <%= ENV.fetch("DATABASE_URL") %>
-
-  queue:
-    <<: *default
-    database: <%= ENV.fetch("DB_NAME", "blog_with_ruby_production") %>
-    url: <%= ENV.fetch("DATABASE_URL") %>
-
-  cache:
-    <<: *default
-    database: <%= ENV.fetch("DB_NAME", "blog_with_ruby_production") %>
-    url: <%= ENV.fetch("DATABASE_URL") %>
+  <<: *default
+  url: <%= ENV.fetch("DATABASE_URL") %>
